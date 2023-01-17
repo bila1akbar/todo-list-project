@@ -27,6 +27,7 @@ const customList = mongoose.model("customList", customListSchema);
 const port = 3000;
 app.get("/favicon.ico", (req, res) => res.status(204));
 app.get("/", function (req, res) {
+	console.log(`Request at ${req.url}}`)
 	handlingItems.listTitle = handlingItems.day;
 	Item.find({}, function (err, items) {
 		if (err) console.log(err);
