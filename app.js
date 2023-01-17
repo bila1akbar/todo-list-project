@@ -6,14 +6,23 @@ const { day } = require("./external_modules/handlingItems");
 // eslint-disable-next-line no-undef
 const handlingItems = require(__dirname + "/external_modules/handlingItems.js");
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 app.set("view engine", "ejs"); // to tell we are using ejs for dynamic binding
 app.use(bodyParser.urlencoded({ extended: true })); //to parse the body of the html and store it into req.body
 app.use(express.static("public")); //When a client makes a request for a file in this directory, the middleware will check if the file exists and, if it does, send it to the client with the appropriate Content-Type header.
 mongoose.set("strictQuery", true); //to avoid the deprecation warning
-mongoose.connect(
-	"mongodb+srv://admin-bilal:test123@atlascluster.kvhg4ya.mongodb.net/todolistDB"
-);
+const connectDB = async () => {
+	try {
+		const conn = await mongoose.connect(
+			"mongodb+srv://admin-bilal:test123@atlascluster.kvhg4ya.mongodb.net/todolistDB"
+		);
+		console.log(`MongoDB Connected: ${conn.connection.host}`);
+	} catch (error) {
+		console.log(error);
+		process.exit(1);
+	}
+};
+
 const itemSchema = new mongoose.Schema({
 	name: {
 		type: String
@@ -33,7 +42,6 @@ app.get("/", function (req, res) {
 		if (err) console.log(err);
 		else res.render("list", { listTitle: handlingItems.listTitle, newItems: items });
 	});
-	console.log("Yes yes ");
 });
 function createandDisColl(theList, res) {
 	customList.findOne({ name: theList }, async function (err, result) {
@@ -63,4 +71,8 @@ app.post("/", function (req, res) {
 	}
 });
 // handling the post request
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+connectDB().then(() => {
+	app.listen(port, () => {
+		console.log("listening for requests");
+	});
+});
