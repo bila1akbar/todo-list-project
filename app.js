@@ -6,7 +6,7 @@ const { day } = require("./external_modules/handlingItems");
 // eslint-disable-next-line no-undef
 const handlingItems = require(__dirname + "/external_modules/handlingItems.js");
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 app.set("view engine", "ejs"); // to tell we are using ejs for dynamic binding
 app.use(bodyParser.urlencoded({ extended: true })); //to parse the body of the html and store it into req.body
 app.use(express.static("public")); //When a client makes a request for a file in this directory, the middleware will check if the file exists and, if it does, send it to the client with the appropriate Content-Type header.
