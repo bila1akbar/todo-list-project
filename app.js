@@ -2,9 +2,8 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const mongoose = require("mongoose");
 const _= require("lodash");
-const { day } = require("./external_modules/handlingItems");
 // eslint-disable-next-line no-undef
-const handlingItems = require(__dirname + "/external_modules/handlingItems.js");
+const handlingItems = require("./external_modules/handlingItems.js");
 const app = express();
 const port = process.env.PORT || 3000;
 app.set("view engine", "ejs"); // to tell we are using ejs for dynamic binding
