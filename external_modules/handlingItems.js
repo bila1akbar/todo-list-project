@@ -1,5 +1,5 @@
 // variables
-let listTitle;
+
 //functions
 async function handlingPostRequest(dataBase, collName, item, req, res) {
 	let items;

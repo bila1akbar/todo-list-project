@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const _= require("lodash");
 // eslint-disable-next-line no-undef
+let listTitle;
 const handlingItems = require("./external_modules/handlingItems.js");
 const app = express();
 const port = process.env.PORT || 3000;
