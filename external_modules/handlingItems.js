@@ -51,7 +51,6 @@ const option = {
 const day = today.toLocaleDateString("en-US", option); //converts the date w.r.t to the values given in the option object
 //the exporting object
 module.exports = {
-	listTitle: listTitle,
 	handlingPostRequest: handlingPostRequest,
 	day: day,
 };
