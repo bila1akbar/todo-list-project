@@ -34,7 +34,10 @@ const customListSchema = new mongoose.Schema({
 	items: [itemSchema]
 });
 const customList = mongoose.model("customList", customListSchema);
-app.get("/favicon.ico", (req, res) => res.status(204));
+app.get("/favicon.ico", (req, res) => {
+	console.log("ERROR: favicon.ico")
+	res.status(204);
+});
 app.get("/", function (req, res) {
 	console.log(`Request at ${req.url}}`)
 	listTitle = handlingItems.day;
