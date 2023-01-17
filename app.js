@@ -2,6 +2,7 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const mongoose = require("mongoose");
 const _= require("lodash");
+const { day } = require("./external_modules/handlingItems");
 // eslint-disable-next-line no-undef
 const handlingItems = require(__dirname + "/external_modules/handlingItems.js");
 const app = express();
@@ -24,12 +25,14 @@ const customListSchema = new mongoose.Schema({
 });
 const customList = mongoose.model("customList", customListSchema);
 const port = 3000;
+app.get("/favicon.ico", (req, res) => res.status(204));
 app.get("/", function (req, res) {
 	handlingItems.listTitle = handlingItems.day;
 	Item.find({}, function (err, items) {
 		if (err) console.log(err);
-		else res.render("list", { listTitle: handlingItems.day, newItems: items });
+		else res.render("list", { listTitle: handlingItems.listTitle, newItems: items });
 	});
+	console.log("Yes yes ");
 });
 function createandDisColl(theList, res) {
 	customList.findOne({ name: theList }, async function (err, result) {
@@ -52,8 +55,7 @@ app.get("/:list", function (req, res) {
 });
 app.post("/", function (req, res) {
 	const item = req.body.newItem;
-	// console.log(handlingItems.listTitle);
-	if (item !== "" && handlingItems.listTitle !== handlingItems.day) {
+	if (handlingItems.listTitle !== handlingItems.day) {
 		handlingItems.handlingPostRequest(customList, handlingItems.listTitle, item, req, res);
 	} else {
 		handlingItems.handlingPostRequest(Item, "items", item, req, res);
