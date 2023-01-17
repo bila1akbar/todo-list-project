@@ -64,6 +64,7 @@ app.get("/:list", function (req, res) {
 });
 app.post("/", function (req, res) {
 	const item = req.body.newItem;
+	console.log(handlingItems.listTitle);
 	if (handlingItems.listTitle !== handlingItems.day) {
 		handlingItems.handlingPostRequest(customList, handlingItems.listTitle, item, req, res);
 	} else {

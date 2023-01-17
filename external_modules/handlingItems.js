@@ -3,6 +3,7 @@ let listTitle;
 //functions
 async function handlingPostRequest(dataBase, collName, item, req, res) {
 	let items;
+	console.log(dataBase.collection.name);
 	if (dataBase.collection.name === "items" && item === undefined) {
 		await dataBase.deleteOne({ _id: req.body.deletionButton }).exec((err) => {
 			if (err) console.log("Error in deleting the item");
