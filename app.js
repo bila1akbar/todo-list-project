@@ -37,10 +37,10 @@ const customList = mongoose.model("customList", customListSchema);
 app.get("/favicon.ico", (req, res) => res.status(204));
 app.get("/", function (req, res) {
 	console.log(`Request at ${req.url}}`)
-	handlingItems.listTitle = handlingItems.day;
+	listTitle = handlingItems.day;
 	Item.find({}, function (err, items) {
 		if (err) console.log(err);
-		else res.render("list", { listTitle: handlingItems.listTitle, newItems: items });
+		else res.render("list", { listTitle: listTitle, newItems: items });
 	});
 });
 function createandDisColl(theList, res) {
@@ -50,23 +50,23 @@ function createandDisColl(theList, res) {
 				name: theList,
 			});
 			await newDocument.save();
-			res.render("list", { listTitle: handlingItems.listTitle, newItems: newDocument.items});
+			res.render("list", { listTitle: listTitle, newItems: newDocument.items});
 		}
 		else {
-			res.render("list", { listTitle: handlingItems.listTitle, newItems: result.items });
+			res.render("list", { listTitle: listTitle, newItems: result.items });
 		}
 	});
 }
 app.get("/:list", function (req, res) {
 	const theList = _.capitalize(req.params.list);
-	handlingItems.listTitle = `${theList}`;
+	listTitle = `${theList}`;
 	createandDisColl(theList, res);
 });
 app.post("/", function (req, res) {
 	const item = req.body.newItem;
-	console.log(handlingItems.listTitle);
-	if (handlingItems.listTitle !== handlingItems.day) {
-		handlingItems.handlingPostRequest(customList, handlingItems.listTitle, item, req, res);
+	console.log(listTitle);
+	if (listTitle !== handlingItems.day) {
+		handlingItems.handlingPostRequest(customList, listTitle, item, req, res);
 	} else {
 		handlingItems.handlingPostRequest(Item, "items", item, req, res);
 	}
