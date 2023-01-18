@@ -8,6 +8,7 @@
   <% for (let i = 0;i<newItems.length;i++) {%>
   <div class="item">
     <form class="item" action="/" method="post">
+       <input type="hidden" name="listTitle" value="<%=listTitle%>">
       <button type="submit" name="deletionButton" value="<%= newItems[i]._id %>" id="checkbox">❌</button>
       <p> <%= newItems[i].name %> </p>
     </form>
@@ -15,7 +16,8 @@
   <% } %>
   <form class="item" action="/" method="post">
     <input type="text" name="newItem" placeholder="New item" autocomplete="off">
-    <button type="submit" name="button" value="<%= listTitle %>">➕</button>
+    <input type="hidden" name="listTitle" value="<%=listTitle%>">
+    <button type="submit" name="button" >➕</button>
   </form>
 </div>
 <%- include('footer'); -%>
