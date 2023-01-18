@@ -35,6 +35,7 @@ const customListSchema = new mongoose.Schema({
 });
 const customList = mongoose.model("customList", customListSchema);
 app.get("/favicon.ico", (req, res) => {
+	console.log(listTitle);
 	console.log("ERROR: favicon.ico")
 	res.status(204);
 });
