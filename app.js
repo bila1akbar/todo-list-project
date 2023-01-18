@@ -35,13 +35,10 @@ const customListSchema = new mongoose.Schema({
 });
 const customList = mongoose.model("customList", customListSchema);
 app.get("/favicon.ico", (req, res) => {
-	console.log(listTitle);
-	console.log("ERROR: favicon.ico")
 	res.status(204);
 });
-app.get("/", function (req, res) {
-	console.log(`Request at ${req.url}}`)
-	listTitle = handlingItems.day;
+app.get("/", async function (req, res) {
+	listTitle = await handlingItems.day;
 	Item.find({}, function (err, items) {
 		if (err) console.log(err);
 		else res.render("list", { listTitle: listTitle, newItems: items });
